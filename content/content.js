@@ -1,4 +1,4 @@
-// === ZONE 2: SAFE LISTENER WITH AN INTERVAL CHECK ===
+
 function findInputlement() {
   // 1. Setup a timer that checks every 500 milliseconds (half a second)
   const checkExist = setInterval(() => {
@@ -8,11 +8,11 @@ function findInputlement() {
     if (inputElement) {
       const badge = document.createElement("div");
       badge.id = "promptly-badge";
-      badge.style.bottom = "8px";
+      badge.style.bottom = "2px";
       badge.style.right = "8px";
-      badge.style.backgroundColor = "black";
+      badge.style.backgroundColor = "#D97757";
       badge.style.color = "white";
-      badge.style.padding = "10px";
+      badge.style.padding = "2px";
       badge.style.zIndex = "9999";
       badge.style.borderRadius = "5px";
       badge.textContent = "0";
