@@ -1,11 +1,10 @@
-
+// Poll until the chat input appears — SPAs often mount it after the page loads.
 function findInputlement() {
-  // 1. Setup a timer that checks every 500 milliseconds (half a second)
   const checkExist = setInterval(() => {
     const inputElement = document.querySelector('[contenteditable="true"]');
 
-    // 2. If the input element is finally found...
     if (inputElement) {
+      // Token-count badge anchored to the bottom-right of the input area.
       const badge = document.createElement("div");
       badge.id = "promptly-badge";
       badge.style.bottom = "2px";
@@ -21,15 +20,15 @@ function findInputlement() {
 
       const parentElement = inputElement.parentElement;
 
+      // Parent must be positioned so the absolute badge stays inside the input box.
       parentElement.style.position = "relative";
       parentElement.appendChild(badge);
 
-      // 3. Stop checking/looping
       clearInterval(checkExist);
 
-      // 4. Safely attach your event listener
       inputElement.addEventListener("input", (event) => {
         const inputValue = event.target.innerText.trim();
+        // Rough token estimate: word count × 1.3 (typical English token/word ratio).
         const tokenCount = Math.round(
           inputValue.split(" ").filter((w) => w.length > 0).length * 1.3,
         );
