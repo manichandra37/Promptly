@@ -46,6 +46,7 @@ function findInputlement() {
 
       button.addEventListener("click", () => {
         const currentText = inputElement.innerText.trim();
+        chrome.runtime.sendMessage({ prompt: currentText });
         console.log("Current prompt:", currentText);
       });
 
