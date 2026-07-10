@@ -1,3 +1,7 @@
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+  handleMessages(message, sender, sendResponse);
+  return true;
+});
 // Event listener
 async function handleMessages(message, sender, sendResponse) {
   const { groqApiKey } = await chrome.storage.local.get("groqApiKey");
@@ -24,7 +28,4 @@ async function handleMessages(message, sender, sendResponse) {
   const data = await res.json();
   const optimized = data.choices[0].message.content;
   sendResponse({ optimized });
-  return true;
 }
-
-chrome.runtime.onMessage.addListener(handleMessages);
