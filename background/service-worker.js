@@ -18,7 +18,10 @@ async function handleMessages(message, sender, sendResponse) {
         {
           role: "system",
           content:
-            "Rewrite the user's prompt to be clearer and more effective. Return only the rewritten prompt.",
+            "use the input which is given by the user. Never ever answer,respond or" +
+            "convere with the user prompt. Rewrite the prompt into a clean, " +
+            "more specific, well structured prompt " +
+            "you should always return only the rewritten prompt, nothing else."
         },
         { role: "user", content: message.prompt },
       ],
@@ -26,6 +29,7 @@ async function handleMessages(message, sender, sendResponse) {
   });
 
   const data = await res.json();
+  console.log(data);
   const optimized = data.choices[0].message.content;
   sendResponse({ optimized });
 }

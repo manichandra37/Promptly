@@ -44,10 +44,19 @@ function findInputlement() {
 
       clearInterval(checkExist);
 
-      button.addEventListener("click", () => {
+      button.addEventListener("click", async () => {
         const currentText = inputElement.innerText.trim();
-        chrome.runtime.sendMessage({ prompt: currentText });
+        const response = await chrome.runtime.sendMessage({
+          prompt: currentText,
+        });
         console.log("Current prompt:", currentText);
+        if (response && response.optimized) {
+          console.log("Optimized prompt:", response.optimized);
+          inputElement.innerText = response.optimized;
+          inputElement.dispatchEvent(new Event("input", { bubbles: true }));
+        } else {
+          console.error("Failed to get optimized prompt.");
+        }
       });
 
       inputElement.addEventListener("input", (event) => {
