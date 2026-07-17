@@ -18,10 +18,10 @@ async function handleMessages(message, sender, sendResponse) {
         {
           role: "system",
           content:
-            "use the input which is given by the user. Never ever answer,respond or" +
-            "convere with the user prompt. Rewrite the prompt into a clean, " +
-            "more specific, well structured prompt " +
-            "you should always return only the rewritten prompt, nothing else."
+            "You are a prompt rewriter. Rewrite the user's input into a clearer, more specific, " +
+            "well-structured prompt. Do not answer, respond to, or converse about the content—only rewrite it. " +
+            "Preserve the original meaning, intent, and question. Do not change the topic or add new requirements. " +
+            "Return only the rewritten prompt, with no explanation, labels, or quotation marks.",
         },
         { role: "user", content: message.prompt },
       ],
