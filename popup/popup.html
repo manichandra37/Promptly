@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Promptly Settings</title>
+  <link rel="stylesheet" href="popup.css" />
+</head>
+<body>
+  <h1>Promptly</h1>
+  <p class="subtitle">Token counter &amp; prompt optimizer</p>
+
+  <label for="api-key">Groq API key</label>
+  <input
+    type="password"
+    id="api-key"
+    placeholder="gsk_..."
+    autocomplete="off"
+  />
+  <button id="save-btn">Save</button>
+
+  <!-- status shows "Saved!" or validation errors after clicking Save -->
+  <p id="status"></p>
+
+  <!-- Required by Chrome Web Store: prominent disclosure of data flow -->
+  <div class="disclosure">
+    <strong>Privacy:</strong> when you click the optimize button, the text of
+    your prompt is sent to the Groq API (api.groq.com) to be rewritten. Your
+    API key is stored only in your browser via chrome.storage.local and is
+    never sent anywhere except Groq. Nothing else is collected. See the
+    <a href="https://github.com/manichandra37/Promptly/blob/main/PRIVACY.md"
+       target="_blank" rel="noopener">privacy policy</a>.
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

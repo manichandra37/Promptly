@@ -66,6 +66,11 @@ function findInputlement() {
           inputElement.dispatchEvent(new Event("input", { bubbles: true }));
         } else {
           console.error("Failed to get optimized prompt.");
+          // ADDED: the service worker now sends { error } with the reason
+          // (missing key, rate limit, offline...) — log it so it's debuggable.
+          if (response && response.error) {
+            console.error("Promptly error:", response.error);
+          }
           button.disabled = false;
           button.style.opacity = "1";
         }
