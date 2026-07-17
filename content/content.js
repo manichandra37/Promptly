@@ -21,6 +21,8 @@ function findInputlement() {
       button.style.alignItems = "center";
       button.style.justifyContent = "center";
 
+      let ignoreNextInput = false;
+
       // Token-count badge anchored to the bottom-right of the input area.
       const badge = document.createElement("div");
       badge.id = "promptly-badge";
@@ -45,21 +47,39 @@ function findInputlement() {
       clearInterval(checkExist);
 
       button.addEventListener("click", async () => {
+        if (button.disabled) return;
+
+        button.disabled = true;
+        button.style.opacity = "0.5";
+
         const currentText = inputElement.innerText.trim();
         const response = await chrome.runtime.sendMessage({
           prompt: currentText,
         });
+
         console.log("Current prompt:", currentText);
+
         if (response && response.optimized) {
           console.log("Optimized prompt:", response.optimized);
+          ignoreNextInput = true;
           inputElement.innerText = response.optimized;
           inputElement.dispatchEvent(new Event("input", { bubbles: true }));
         } else {
           console.error("Failed to get optimized prompt.");
+          button.disabled = false;
+          button.style.opacity = "1";
         }
       });
 
       inputElement.addEventListener("input", (event) => {
+        if (ignoreNextInput) {
+          ignoreNextInput = false;
+          return;
+        }
+
+        button.disabled = false;
+        button.style.opacity = "1";
+
         const inputValue = event.target.innerText.trim();
         // Rough token estimate: word count × 1.3 (typical English token/word ratio).
         const tokenCount = Math.round(
